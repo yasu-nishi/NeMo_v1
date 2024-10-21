@@ -29,8 +29,7 @@ from collections import OrderedDict
 import torch
 from omegaconf import OmegaConf
 from pytorch_lightning.trainer.trainer import Trainer
-from transformers import AutoTokenizer, LlamaForCausalLM, LlamaTokenizer,
-                         AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer, LlamaForCausalLM, LlamaTokenizer, AutoModelForCausalLM, AutoTokenizer
 
 from nemo.collections.nlp.models.language_modeling.megatron_gpt_model import MegatronGPTModel
 from nemo.collections.nlp.parts.nlp_overrides import (

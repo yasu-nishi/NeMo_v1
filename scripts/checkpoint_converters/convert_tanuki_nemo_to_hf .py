@@ -19,7 +19,7 @@ from collections import OrderedDict
 import torch
 from omegaconf import open_dict
 from pytorch_lightning import Trainer
-from transformers import AutoModelForCausalLM, LlamaTokenizer, LlamaTokenizerFast, convert_slow_tokenizer
+from transformers import AutoModelForCausalLM, LlamaTokenizer, AutoTokenizer, LlamaTokenizerFast, convert_slow_tokenizer
 
 from nemo.collections.nlp.models.language_modeling.megatron_gpt_model import MegatronGPTModel
 from nemo.collections.nlp.parts.nlp_overrides import NLPDDPStrategy
@@ -232,9 +232,9 @@ def replace_hf_weights_and_tokenizer(
     nemo_exported = torch.load(weights_file)
 
     if tokenizer_path:
-        tokenizer = LlamaTokenizer.from_pretrained(tokenizer_path, local_files_only=True, legacy=False,)
+        tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True, legacy=False,)
         tmp_tokenizer = convert_slow_tokenizer.convert_slow_tokenizer(tokenizer)
-        fast_tokenizer = LlamaTokenizerFast(tokenizer_object=tmp_tokenizer)
+        fast_tokenizer = AutoTokenizerFast(tokenizer_object=tmp_tokenizer)
         tokenizer_length = len(fast_tokenizer)
         model.resize_token_embeddings(tokenizer_length)
 
